@@ -1,5 +1,5 @@
 
-
+import { Toaster } from 'react-hot-toast';
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "../components/Navbar";
@@ -26,6 +26,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background font-mono`}
       >
+        <Toaster position="top-center"
+           reverseOrder={false}/>
         <Navbar/>
         <div className="pt-28">
         {children}

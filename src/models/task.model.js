@@ -21,6 +21,8 @@ const taskSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
+},{
+    timestamps: true,
 });
 
 export default mongoose.models.Task || mongoose.model("Task", taskSchema);

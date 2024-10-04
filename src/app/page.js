@@ -1,6 +1,8 @@
 "use client"
 
+import { getAllTasks } from '@/service/taskService';
 import React , {useState , useEffect} from 'react'
+import toast from 'react-hot-toast';
 import { IoMdClose } from "react-icons/io";
 
 function HomePage() {
@@ -8,51 +10,66 @@ function HomePage() {
   document.title = "Task : Home";
 
   const [tasks , setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  let arr = [
-    {
-      title : "Learn Java",
-      description : "Learn Java from scratch",
-      status : "padding",
-      date : "2022-10-10"
-    },
-    {
-      title : "Learn React",
-      description : "Learn React from scratch",
-      status : "padding",
-      date : "2022-10-10"
-    },
-    {
-      title : "Learn Python",
-      description : "Learn Python from scratch",
-      status : "completed",
-      date : "2022-10-10"
-    },
-    {
-      title : "Learn Go",
-      description : "Learn Go from scratch",
-      status : "padding",
-      date : "2022-10-10"
-    },
-    {
-      title : "Learn Rust",
-      description : "Learn Rust from scratch",
-      status : "completed",
-      date : "2022-10-10"
-    },
-  ]
+  // let arr = [
+  //   {
+  //     title : "Learn Java",
+  //     description : "Learn Java from scratch",
+  //     status : "padding",
+  //     date : "2022-10-10"
+  //   },
+  //   {
+  //     title : "Learn React",
+  //     description : "Learn React from scratch",
+  //     status : "padding",
+  //     date : "2022-10-10"
+  //   },
+  //   {
+  //     title : "Learn Python",
+  //     description : "Learn Python from scratch",
+  //     status : "completed",
+  //     date : "2022-10-10"
+  //   },
+  //   {
+  //     title : "Learn Go",
+  //     description : "Learn Go from scratch",
+  //     status : "padding",
+  //     date : "2022-10-10"
+  //   },
+  //   {
+  //     title : "Learn Rust",
+  //     description : "Learn Rust from scratch",
+  //     status : "completed",
+  //     date : "2022-10-10"
+  //   },
+  // ]
 
 
   useEffect(()=>{
-    setTasks(arr);
+    // setTasks();
+    getAllTasksFromDB();
   },[]);
+
+  const getAllTasksFromDB = async () => {
+    try{
+       setLoading(true);
+       let res = await getAllTasks();
+
+       setTasks(res.data.data);
+
+    }catch(error){
+       toast.error(error.response.data.message);
+    }
+    setLoading(false);
+  }
 
   return (
     <div>
       <div className="flex justify-center items-center p-5">
         <div className="container xl:w-1/2 lg:w-1/2 sm:w-full  h-fit">
           <p className="text-center text-2xl text-secondary mb-3 font-bold">Tasks List</p>
-          <div className="flex flex-col space-y-2">
+        {loading  ? <p>Loading...</p> :  <div className="flex flex-col space-y-2">
             {
               tasks.map((task , index) => {
                 return (
@@ -72,7 +89,7 @@ function HomePage() {
                 )
               })
             }
-          </div>
+          </div>}
         </div>
       </div>
     </div>
