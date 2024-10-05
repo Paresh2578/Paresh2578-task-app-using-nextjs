@@ -15,7 +15,7 @@ function Navbar() {
 
   const [loading, setLoading] = useState(false);
 
-  console.log(user);
+
 
   const handleLogOut = async () =>{
     try{
@@ -46,7 +46,7 @@ function Navbar() {
 
        <div className="flex space-x-4 items-center">
           <Link href="/" className="hover:cursor-pointer hover:text-background">Home</Link>
-          <Link href={"task/addTask"} className="hover:cursor-pointer hover:text-background">Add Task</Link>
+          <Link href={"/task/addTask"} className="hover:cursor-pointer hover:text-background">Add Task</Link>
        </div>
        {
         user ?

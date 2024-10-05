@@ -1,6 +1,8 @@
 import { jwtVerify } from 'jose';
 import { NextResponse } from 'next/server';
 
+import clearAllLocalStorageData from "@/helper/clearLocalStorageData";
+
 export async function middleware(request) {
     let token = request.cookies.get("authToken")?.value;
 
@@ -14,6 +16,9 @@ export async function middleware(request) {
 
     // If token not found
     if (!token) {
+        // clear all user information form local storage
+        clearAllLocalStorageData();
+
         if (request.nextUrl.pathname.startsWith("/api")) {
             return NextResponse.json({ message: "Unauthorized", success: false }, { status: 401 });
         }
