@@ -28,8 +28,6 @@ export default function page({params}) {
       setTaskLoading(true);
       let res = await getTaskById(taskId);
 
-      console.log(res.data.data);
-
       setTask(res.data.data);
     } catch (error) {
       toast.error(error.response.data.message);

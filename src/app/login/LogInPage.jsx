@@ -4,7 +4,7 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import { LogIn } from '@/service/userService';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React , {useState} from 'react';
+import React , {useState , useEffect} from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { RiLockPasswordFill } from "react-icons/ri";
@@ -17,6 +17,10 @@ export default function LogInPage() {
   const [loading, setLoading] = useState(false);
 
 
+  useEffect(()=>{
+    // clear all user information form local storage
+    localStorage.clear();
+  },[])
 
   const onSubmit = async (data) => {
     try{

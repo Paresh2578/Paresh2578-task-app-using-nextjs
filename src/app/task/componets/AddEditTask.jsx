@@ -16,9 +16,9 @@ export default function AddEditTask({task , handleTask , loading}) {
       useEffect(()=>{
         // set task value when edit task else empty
         reset({
-          title : task.title || '',
-          description : task.description || '',
-          status : task.status || ''
+          title :task ?  task.title : '',
+          description :task ? task.description : '',
+          status :task ? task.status : ''
         })
 
       },[task , reset])

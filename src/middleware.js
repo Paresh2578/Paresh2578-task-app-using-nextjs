@@ -7,7 +7,8 @@ export async function middleware(request) {
     let token = request.cookies.get("authToken")?.value;
 
     // Define routes that do not require authentication
-    const allowRoutes = ["/api/login", "/api/signup"];
+    const allowRoutes = ["/api/login", "/api/signup"  ];
+
 
     // Allow login and signup API routes to be accessed without a token
     if (allowRoutes.includes(request.nextUrl.pathname)) {
@@ -16,9 +17,6 @@ export async function middleware(request) {
 
     // If token not found
     if (!token) {
-        // clear all user information form local storage
-        clearAllLocalStorageData();
-
         if (request.nextUrl.pathname.startsWith("/api")) {
             return NextResponse.json({ message: "Unauthorized", success: false }, { status: 401 });
         }
@@ -50,6 +48,7 @@ export async function middleware(request) {
 
         return response; // Continue to the requested route
     } catch (error) {
+
         if (request.nextUrl.pathname.startsWith("/api")) {
             return NextResponse.json({ message: "Unauthorized", success: false }, { status: 401 });
         }

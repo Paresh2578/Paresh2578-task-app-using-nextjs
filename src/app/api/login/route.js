@@ -29,7 +29,7 @@ export  async function POST(request){
         }
 
         //genrate token
-        let token = jwt.sign({id : user._id}, process.env.JWT_SECRET, {expiresIn : '1d'});
+        let token = jwt.sign({id : user._id}, process.env.JWT_SECRET, {expiresIn : '2d'});
 
         // send response
         let response = NextResponse.json({message : "Login successfully", success : true, username : user.username}, {status : 200});
